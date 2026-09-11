@@ -116,7 +116,7 @@
         'Emotion AI': 'IA de Emoções',
         'E-commerce Product Title Normalization': 'Normalização de Títulos de Produtos em E-commerce',
         'Uses LLMs to extract attributes such as brand, model, type, capacity, voltage, and color from Mercado Livre listings, creating standardized representations for deduplication and entity matching. The study compares Gemini, GPT, and DeepSeek across F1, consistency, and stability.': 'Usa LLMs para extrair atributos como marca, modelo, tipo, capacidade, voltagem e cor de anúncios do Mercado Livre, criando representações padronizadas para deduplicação e correspondência de entidades. O estudo compara Gemini, GPT e DeepSeek em F1, constância e estabilidade.',
-        'Paper published at BRACIS / SBC STIL.': 'Artigo publicado no BRACIS / SBC STIL.',
+        'Paper published at the XX Workshop-Escola de Sistemas de Agentes, seus Ambientes e Aplicações (WESAAC 2026).': 'Artigo publicado no XX Workshop-Escola de Sistemas de Agentes, seus Ambientes e Aplicações (WESAAC 2026).',
         'Entity Matching': 'Correspondência de Entidades',
         'TAIL · MLOps Directorate': 'TAIL · Diretoria de MLOps',
         'TAIL CMS Website': 'Site CMS da TAIL',
