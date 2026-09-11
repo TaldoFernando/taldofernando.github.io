@@ -98,6 +98,7 @@ html::-webkit-scrollbar-thumb,
 body::-webkit-scrollbar-thumb{
   background:var(--sb-thumb-color);
   border-radius:3px;
+  box-shadow:0 0 8px var(--sb-thumb-color);
 }
 
 @supports not selector(::-webkit-scrollbar){
