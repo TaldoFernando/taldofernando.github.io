@@ -83,22 +83,26 @@ html[data-theme="dark"]{
   --sb-thumb-color: var(--sun);
 }
 
+html::-webkit-scrollbar,
 body::-webkit-scrollbar{
   width:var(--sb-size);
 }
 
+html::-webkit-scrollbar-track,
 body::-webkit-scrollbar-track{
   background:var(--sb-track-color);
   border-radius:3px;
 }
 
+html::-webkit-scrollbar-thumb,
 body::-webkit-scrollbar-thumb{
   background:var(--sb-thumb-color);
   border-radius:3px;
 }
 
 @supports not selector(::-webkit-scrollbar){
-  body{
+  html{
+    scrollbar-width:auto;
     scrollbar-color:var(--sb-thumb-color) var(--sb-track-color);
   }
 }
