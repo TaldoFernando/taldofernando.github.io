@@ -5,14 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Fernando d'Ávila is a Full Stack and AI Developer building web applications, NLP tools, OCR systems, and machine learning solutions.">
     <meta name="author" content="Fernando d'Ávila">
-    <meta property="og:title" content="Fernando d'Ávila | Full Stack & AI Developer">
+    <meta property="og:title" content="Fernando d'Ávila | Full Stack &amp; AI Developer">
     <meta property="og:description" content="Portfolio with AI, machine learning, full-stack development, research, and applied software projects.">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="assets/eu-hero.png">
-    <meta name="theme-color" content="#0f172a">
-    <title>Fernando d'Ávila | Full Stack & AI Developer</title>
+    <meta property="og:image" content="assets/fernando-hero.jpg">
+    <meta name="theme-color" content="#5f87b3">
+    <title>Fernando d'Ávila | Full Stack &amp; AI Developer</title>
 
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="assets/favicon.ico?v=1" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=1">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png?v=1">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png?v=1">
+
+    <script>
+        (() => {
+            const savedTheme = localStorage.getItem('portfolio-theme');
+            const theme = savedTheme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.dataset.theme = theme;
+        })();
+    </script>
+    <link rel="stylesheet" href="assets/css/style.css?v=20260911-3">
 </head>
 <body>
     <div id="nav-placeholder"></div>
@@ -20,6 +32,7 @@
     <main>
         <div id="home-placeholder"></div>
         <div id="experience-placeholder"></div>
+        <div id="build-flow-placeholder"></div>
         <div id="projects-placeholder"></div>
         <div id="skills-placeholder"></div>
         <div id="contact-placeholder"></div>
@@ -30,7 +43,7 @@
     <script>
         async function loadPartial(path, selector) {
             try {
-                const res = await fetch(path);
+                const res = await fetch(path, { cache: 'no-store' });
                 if (!res.ok) throw new Error(path + ' not found');
                 const html = await res.text();
                 document.querySelector(selector).innerHTML = html;
@@ -43,6 +56,7 @@
             { path: 'partials/nav.html', selector: '#nav-placeholder' },
             { path: 'partials/home.html', selector: '#home-placeholder' },
             { path: 'partials/experience.html', selector: '#experience-placeholder' },
+            { path: 'partials/build-flow.html', selector: '#build-flow-placeholder' },
             { path: 'partials/projects.html', selector: '#projects-placeholder' },
             { path: 'partials/skills.html', selector: '#skills-placeholder' },
             { path: 'partials/contact.html', selector: '#contact-placeholder' },
@@ -57,6 +71,10 @@
         function initPageScripts() {
             const yearEl = document.getElementById('current-year');
             if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+            initThemeSelector();
+            initBentoCards();
+            initFooterMatrix();
 
             const sections = document.querySelectorAll('section');
             const navLinks = document.querySelectorAll('nav a');
@@ -100,6 +118,97 @@
             }, observerOptions);
 
             document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        }
+
+        function initThemeSelector() {
+            const buttons = document.querySelectorAll('[data-theme-value]');
+            const themeColor = document.querySelector('meta[name="theme-color"]');
+
+            const applyTheme = (theme) => {
+                document.documentElement.dataset.theme = theme;
+                localStorage.setItem('portfolio-theme', theme);
+                if (themeColor) themeColor.content = theme === 'dark' ? '#171416' : '#5f87b3';
+                buttons.forEach((button) => {
+                    const selected = button.dataset.themeValue === theme;
+                    button.setAttribute('aria-pressed', String(selected));
+                });
+            };
+
+            buttons.forEach((button) => {
+                button.addEventListener('click', () => applyTheme(button.dataset.themeValue));
+            });
+
+            applyTheme(document.documentElement.dataset.theme || 'light');
+        }
+
+        function initBentoCards() {
+            document.querySelectorAll('.bento-card').forEach((card) => {
+                card.addEventListener('pointermove', (event) => {
+                    const bounds = card.getBoundingClientRect();
+                    card.style.setProperty('--pointer-x', `${event.clientX - bounds.left}px`);
+                    card.style.setProperty('--pointer-y', `${event.clientY - bounds.top}px`);
+                });
+            });
+        }
+
+        function initFooterMatrix() {
+            const matrix = document.querySelector('[data-matrix]');
+            if (!matrix) return;
+
+            const rows = 7;
+            const cols = 34;
+            const cells = [];
+            const fragment = document.createDocumentFragment();
+
+            for (let row = 0; row < rows; row += 1) {
+                for (let col = 0; col < cols; col += 1) {
+                    const cell = document.createElement('span');
+                    cell.className = 'matrix-pixel';
+                    cell.setAttribute('aria-hidden', 'true');
+                    fragment.appendChild(cell);
+                    cells.push({ cell, row, col });
+                }
+            }
+
+            matrix.appendChild(fragment);
+
+            if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                cells.forEach(({ cell, row }) => {
+                    cell.style.opacity = row === 3 ? '0.85' : '0.16';
+                });
+                return;
+            }
+
+            let frame = 0;
+            let animationId;
+            let lastTime = 0;
+            let isVisible = false;
+
+            const draw = (time) => {
+                if (!isVisible) return;
+
+                if (time - lastTime > 70) {
+                    cells.forEach(({ cell, row, col }) => {
+                        const waveRow = 3 + Math.sin(frame * 0.18 + col * 0.42) * 1.8;
+                        const distance = Math.abs(row - waveRow);
+                        const intensity = Math.max(0.1, 1 - distance * 0.42);
+                        cell.style.opacity = intensity.toFixed(2);
+                        cell.style.transform = `scale(${(0.72 + intensity * 0.32).toFixed(2)})`;
+                    });
+                    frame += 1;
+                    lastTime = time;
+                }
+
+                animationId = requestAnimationFrame(draw);
+            };
+
+            const observer = new IntersectionObserver(([entry]) => {
+                isVisible = entry.isIntersecting;
+                cancelAnimationFrame(animationId);
+                if (isVisible) animationId = requestAnimationFrame(draw);
+            });
+
+            observer.observe(matrix);
         }
     </script>
 </body>
