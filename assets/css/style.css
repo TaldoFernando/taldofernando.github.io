@@ -49,6 +49,9 @@ body {
   --particle-3:#58adff;
   --particle-opacity:.1;
   --particle-mobile-opacity:.075;
+  --sb-track-color: #dce8f3;
+  --sb-thumb-color: var(--sun);
+  --sb-size: 14px;
 }
 
 html[data-theme="dark"]{
@@ -76,6 +79,28 @@ html[data-theme="dark"]{
   --particle-3:#ffe08a;
   --particle-opacity:.065;
   --particle-mobile-opacity:.05;
+  --sb-track-color: #3a3032;
+  --sb-thumb-color: var(--sun);
+}
+
+body::-webkit-scrollbar{
+  width:var(--sb-size);
+}
+
+body::-webkit-scrollbar-track{
+  background:var(--sb-track-color);
+  border-radius:3px;
+}
+
+body::-webkit-scrollbar-thumb{
+  background:var(--sb-thumb-color);
+  border-radius:3px;
+}
+
+@supports not selector(::-webkit-scrollbar){
+  body{
+    scrollbar-color:var(--sb-thumb-color) var(--sb-track-color);
+  }
 }
 
 /* Ambient particles */
