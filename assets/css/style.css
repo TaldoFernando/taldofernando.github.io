@@ -2,19 +2,25 @@
 
 /* Reset / base */
 *, *::before, *::after { box-sizing: border-box; }
-html, body { height: 100%; }
+html {
+  min-height:100%;
+  background:#f8f3e8;
+}
 body {
   margin: 0;
-  min-height:100%;
+  min-height:100vh;
   overflow-x:hidden;
   isolation:isolate;
   font-family: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #251d20;
-  background:
+  background-color:#f8f3e8;
+  background-image:
     radial-gradient(circle at 88% 5%, rgba(147,179,217,0.28), transparent 28rem),
     linear-gradient(180deg, #fffdf7 0%, #f8f3e8 48%, #edf4f8 100%);
+  background-repeat:no-repeat;
+  background-size:100% 100%;
   line-height: 1.6;
   font-size: 16px;
   -webkit-tap-highlight-color: transparent;
@@ -56,6 +62,7 @@ body {
 
 html[data-theme="dark"]{
   color-scheme: dark;
+  background:#171416;
   --ink: #f8f3e8;
   --muted: #c6bbba;
   --muted-2: #9f9193;
@@ -392,7 +399,7 @@ nav a.active {
 }
 
 header{
-  padding: clamp(2rem, 5vw, 3.75rem) 0 clamp(2.5rem, 6vw, 4rem);
+  padding: clamp(2rem, 5vw, 3.75rem) 0 clamp(1.5rem, 3vw, 2.5rem);
 }
 
 .hero-content {
@@ -434,13 +441,18 @@ header{
   margin-bottom: 1.5rem;
 }
 
-.hero-photo{
+.hero-media{
   grid-column: 2;
   grid-row: 1 / span 2;
   align-self: center;
   justify-self: center;
   width: 100%;
   max-width: 360px;
+}
+
+.hero-photo{
+  display:block;
+  width:100%;
   height: 430px;
   border-radius: 18px;
   object-fit: cover;
@@ -1417,7 +1429,8 @@ footer{
 
 html[data-theme="dark"] body{
   color:var(--ink);
-  background:
+  background-color:#171416;
+  background-image:
     radial-gradient(circle at 88% 5%, rgba(91,124,161,.24), transparent 28rem),
     linear-gradient(180deg,#171416 0%,#211b1d 48%,#151a20 100%);
 }
@@ -1460,7 +1473,14 @@ a:focus, button:focus{ outline: 3px solid rgba(var(--highlight-rgb),0.42); outli
   nav ul{ order:3; width:100%; justify-content:center; }
   .theme-selector{ margin-left:auto; }
   nav{ padding:.55rem 0; }
-  .hero-photo{ grid-column: auto; grid-row: auto; max-width: 280px; height: 350px; margin: 0 auto; border-radius: 16px; }
+  .hero-media{
+    grid-column:auto;
+    grid-row:auto;
+    width:100%;
+    max-width:320px;
+    margin:0 auto;
+  }
+  .hero-photo{ height:360px; border-radius:16px; }
   .hero-stats{ grid-column: auto; }
   .bento-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:auto; }
   .bento-card-process{ grid-column:span 2; }

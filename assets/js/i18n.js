@@ -153,6 +153,7 @@
         'Testing': 'Testes',
         'Debugging': 'Depuração',
         'Resume versions': 'Versões de currículo',
+        'In case you missed it, here it is.': 'Caso você tenha perdido, segue aqui.',
         'One background, three professional profiles.': 'Uma trajetória, três perfis profissionais.',
         'My experience is organized into tailored resumes for AI, startup, and corporate opportunities, each available in American English and Brazilian Portuguese.': 'Minha experiência está organizada em currículos direcionados a oportunidades de IA, startups e empresas, cada um disponível em inglês americano e português brasileiro.',
         'Artificial Intelligence': 'Inteligência Artificial',
